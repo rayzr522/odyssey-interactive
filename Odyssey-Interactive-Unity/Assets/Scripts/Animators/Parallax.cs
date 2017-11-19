@@ -10,12 +10,12 @@ public class Parallax : MonoBehaviour {
 	private Vector3 startPosition;
 
 	void Awake() {
-		startPosition = transform.position;
+		startPosition = transform.localPosition;
 	}
 
 	void Update () {
 		float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSize);
 		
-		transform.position = startPosition + (direction * newPosition);
+		transform.localPosition = startPosition + (direction * newPosition);
 	}
 }

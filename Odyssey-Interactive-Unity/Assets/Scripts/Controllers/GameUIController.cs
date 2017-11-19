@@ -21,4 +21,9 @@ public class GameUIController : MonoBehaviour {
             SetHealth(currentHealth);
         }
     }
+
+    public void OnPressBack() {
+        // TODO: Do cleanup, maybe?
+        Global.Scenes.MAIN.show();
+    }
 }

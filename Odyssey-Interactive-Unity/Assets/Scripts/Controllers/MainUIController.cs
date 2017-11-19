@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIController : MonoBehaviour
-{
+public class MainUIController : MonoBehaviour {
 
-    public void OnPressPlay()
-    {
-        Debug.Log("You pressed PLAY");
+    public void OnPressPlay() {
+        Global.Scenes.GAME.show();
     }
 
-    public void OnPressQuit()
-    {
-        Debug.Log("You pressed QUIT");
-		Application.Quit();
+    public void OnPressQuit() {
+        Application.Quit();
     }
 
 }

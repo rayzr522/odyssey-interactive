@@ -4,21 +4,28 @@ using UnityEngine;
 
 public class Bobber : MonoBehaviour {
 
-	public float xRange = 5.0f;
-	public float yRange = 5.0f;
-	public float zRange = 5.0f;
-	public float speed = 1.0f;
+    public float range = 5.0f;
+    public float speed = 1.0f;
 
-	public Vector3 basePos;
+    public float startY;
 
-	void Awake() {
-		basePos = transform.position;
-	}
+    private float oldScreenHeight;
 
-	void Update () {
-		float sin = Mathf.Sin (Time.time * speed);
-		float cos = Mathf.Cos (Time.time * speed);
+    void Awake() {
+        startY = transform.position.y;
+        oldScreenHeight = Screen.height;
+    }
 
-		transform.position = basePos + new Vector3 (cos * xRange, sin * yRange, cos * zRange);
-	}
+    void Update() {
+        float newScreenHeight = Screen.height;
+
+        if (oldScreenHeight != newScreenHeight) {
+            startY *= (newScreenHeight / oldScreenHeight);
+            oldScreenHeight = newScreenHeight;
+        }
+
+        Vector3 position = transform.position;
+        position.y = startY + Mathf.Sin(Time.time * speed) * range;
+        transform.position = position;
+    }
 }
