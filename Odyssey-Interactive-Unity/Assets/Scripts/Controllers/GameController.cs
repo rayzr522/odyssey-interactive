@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour {
     void Init() {
         state = State.PLAYING;
         Time.timeScale = 1f;
-        Debug.Log("GameController.Init() @ " + Time.time);
+        // Debug.Log("GameController.Init() @ " + Time.time);
     }
 
     void CleanUp() {
