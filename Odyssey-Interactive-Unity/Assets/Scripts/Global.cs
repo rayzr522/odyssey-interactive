@@ -18,5 +18,10 @@ public static class Global {
     public class Scenes {
         public static readonly Scene MAIN = new Global.Scene("MainMenu");
         public static readonly Scene GAME = new Global.Scene("Game");
+
+        /// Reloads the current scene
+        public static void ReloadCurrent() {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 }
