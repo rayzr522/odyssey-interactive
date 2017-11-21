@@ -1,10 +1,5 @@
-﻿//place this script in the Editor folder within Assets.
-using System;
+﻿// Original source: https://gist.github.com/jagwire/0129d50778c8b4462b68
 using UnityEditor;
-
-
-//to be used on the command line:
-//$ Unity -quit -batchmode -executeMethod WebGLBuilder.build
 
 class WebGLBuilder {
     static void build() {
@@ -13,8 +8,6 @@ class WebGLBuilder {
             "Assets/_Scenes/Game.unity"
         };
 
-		Console.WriteLine("Beginning build...");
         BuildPipeline.BuildPlayer(scenes, "webgl-build", BuildTarget.WebGL, BuildOptions.None);
-		Console.WriteLine("Build complete");
     }
 }
