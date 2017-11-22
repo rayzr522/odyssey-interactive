@@ -1,10 +1,10 @@
 # Basic idea
 The basic idea is to recreate the scenes with Scylla and Charybdis from *The Odyssey* in the form of a small and simple game.
 
-> See [SOURCES.md](SOURCES.md) for various facts and information about the characters/location/story
+> See [SOURCE_MTRL.md](SOURCE_MTRL.md) for various facts and information about the characters/location/story
 
 ## How will this all work?
-![general-game-layout](img/general-game-layout.png)
+<img src="img/general-game-layout.png" height="450"></img>
 
 Now, you may be wondering *what the heck is the image above all about?* Well, quite simply, this is my horridly awful attempt at depicting how the in-game layout will be. Based on descriptions from *The Odyssey* itself and various websites, as well as the actual Strait of Messina itself, you had to sail **right** between Scylla and Charybdis. Scylla would be on one side of you, while Charybdis was on the other, and if you got too close to either one, you would be either eaten or sucked into a vortex of water. 
 
