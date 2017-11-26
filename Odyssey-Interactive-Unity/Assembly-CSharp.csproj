@@ -54,12 +54,16 @@
      <Compile Include="Assets\Scripts\Animators\Bobber.cs" />
      <Compile Include="Assets\Scripts\Animators\Parallax.cs" />
      <Compile Include="Assets\Scripts\Animators\Spinner.cs" />
+     <Compile Include="Assets\Scripts\Animators\WIGGLER.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\GameOverMenu.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameUIController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainUIController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ScyllaController.cs" />
      <Compile Include="Assets\Scripts\Controllers\WhirlpoolController.cs" />
+     <Compile Include="Assets\Scripts\Data\DeathReason.cs" />
+     <Compile Include="Assets\Scripts\Data\GameResults.cs" />
      <Compile Include="Assets\Scripts\Global.cs" />
      <Compile Include="Assets\Scripts\Utils\Extensions.cs" />
  <Reference Include="Facebook.Unity.Settings">

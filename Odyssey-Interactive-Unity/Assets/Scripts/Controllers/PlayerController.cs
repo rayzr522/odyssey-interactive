@@ -2,18 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class PlayerController : MonoBehaviour {
-    public float verticalDistanceLimit = 4f;
+    public enum State {
+        ALIVE, DYING, DEAD
+    }
 
+    public State state { get; private set; }
+
+    // Movement variables
+    public float verticalDistanceLimit = 4f;
     public float moveSpeedMultiplier = 0.9f;
     public float maxSpeed = 4f;
     public float dragFactor = 0.98f;
+
+    // Prefab for the explosion
+    public GameObject explosionPrefab;
+
+    // Remaining health
+    public int health { get; private set; }
+    public DeathReason deathReason { get; private set; }
+
     private Vector2 velocity = new Vector2(0, 0);
+    private Animator animator;
 
     private Vector2 mousePosition {
         get {
             return Camera.main.ScreenToWorldPoint(Input.mousePosition).to2D();
         }
+    }
+
+    void Start() {
+        state = State.ALIVE;
+        animator = GetComponent<Animator>();
+
+        health = 6;
     }
 
     // Update is called once per frame
@@ -22,21 +45,53 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
-        DoPhysics();
+        if (state == State.ALIVE) {
+            DoPhysics();
 
-        if (Input.GetMouseButton(0)) {
-            // Prevent recalculation each time this is accessed
-            // I doubt this has a massive performance benefit/impact, but what the heck I might as well
-            Vector2 currentMousePosition = mousePosition;
-            Vector2 pos = transform.position.to2D();
+            if (Input.GetMouseButton(0)) {
+                // Prevent recalculation each time this is accessed
+                // I doubt this has a massive performance benefit/impact, but what the heck I might as well
+                Vector2 currentMousePosition = mousePosition;
+                Vector2 pos = transform.position.to2D();
 
-            // The direction in which to aim
-            Vector2 direction = (currentMousePosition - pos).normalized;
+                // The direction in which to aim
+                Vector2 direction = (currentMousePosition - pos).normalized;
 
-            transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
+                transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg);
 
-            // Reduce velocity change a tad
-            AddVelocity(direction * moveSpeedMultiplier);
+                // Reduce velocity change a tad
+                AddVelocity(direction * moveSpeedMultiplier);
+            }
+        }
+    }
+
+    public void OnTriggerEnter2D(Collider2D other) {
+        if (other.CompareTag("Cliffs")) {
+            deathReason = DeathReason.CLIFFS;
+            StartCoroutine(Kill(true));
+        } else if (other.CompareTag("Whirlpool")) {
+            deathReason = DeathReason.WHIRLPOOL;
+            StartCoroutine(Kill(false));
+        }
+    }
+
+    public IEnumerator Kill(bool explode) {
+        if (state == State.ALIVE) {
+            state = State.DYING;
+
+            animator.SetTrigger("implode");
+
+            if (explode) {
+                GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                yield return new WaitForSeconds(1.5f);
+                Destroy(explosion);
+            } else {
+                yield return new WaitForSeconds(1.5f);
+            }
+
+            state = State.DEAD;
+
+            GameController.instance.ShowGameoverScreen();
         }
     }
 

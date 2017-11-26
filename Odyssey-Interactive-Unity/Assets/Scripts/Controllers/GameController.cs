@@ -68,4 +68,16 @@ public class GameController : MonoBehaviour {
         Global.Scenes.ReloadCurrent();
         // Init();
     }
+
+    private GameResults CompileGameResults() {
+        int health = playerController.health;
+        bool won = playerController.state == PlayerController.State.ALIVE;
+        DeathReason deathReason = playerController.deathReason;
+
+        return new GameResults(0 /* placeholder until I implement the time system */, health, won, deathReason);
+    }
+
+    public void ShowGameoverScreen() {
+        uiController.ShowGameoverScreen(CompileGameResults());
+    }
 }
