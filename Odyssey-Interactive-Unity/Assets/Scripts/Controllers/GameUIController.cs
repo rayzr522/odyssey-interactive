@@ -5,11 +5,10 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameUIController : MonoBehaviour {
-    
+
+    public Text clockText;
     public Image healthbarFilled;
-
     public Image pauseMenu;
-
     public GameOverMenu gameOverMenu;
 
     public void SetHealth(int health) {
@@ -44,5 +43,12 @@ public class GameUIController : MonoBehaviour {
 
     public void ShowGameoverScreen(GameResults gameResults) {
         gameOverMenu.Show(gameResults);
+    }
+
+    public void UpdateClock(int time) {
+        int minutes = time / 60;
+        int seconds = time % 60;
+
+        clockText.text = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
     }
 }

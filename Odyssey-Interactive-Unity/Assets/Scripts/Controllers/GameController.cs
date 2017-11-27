@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
     public enum State {
-        STARTING, PLAYING, PAUSED, END
+        STARTING, PLAYING, PAUSED, GAMEOVER
     }
 
     public static GameController instance {
@@ -17,6 +17,12 @@ public class GameController : MonoBehaviour {
     public ScyllaController scyllaController;
     public WhirlpoolController whirlpoolController;
     public GameUIController uiController;
+
+    public float gameTime = 30f;
+
+    private float _remainingTime;
+
+    public int remainingTime { get { return (int)Math.Ceiling(_remainingTime); } }
 
     public State state {
         get;
@@ -38,7 +44,8 @@ public class GameController : MonoBehaviour {
     void Init() {
         state = State.PLAYING;
         Time.timeScale = 1f;
-        // Debug.Log("GameController.Init() @ " + Time.time);
+
+        _remainingTime = gameTime;
     }
 
     void CleanUp() {
@@ -49,6 +56,16 @@ public class GameController : MonoBehaviour {
     void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             TogglePlayPause();
+        }
+
+        if (state == State.PLAYING && playerController.state == PlayerController.State.ALIVE) {
+            _remainingTime -= Time.deltaTime;
+            if (_remainingTime <= 0f) {
+                _remainingTime = 0f;
+                EndGame();
+            }
+
+            uiController.UpdateClock(remainingTime);
         }
     }
 
@@ -69,15 +86,20 @@ public class GameController : MonoBehaviour {
         // Init();
     }
 
-    private GameResults CompileGameResults() {
+    public void EndGame() {
+        state = State.GAMEOVER;
+        ShowGameoverScreen();
+    }
+
+    void ShowGameoverScreen() {
+        uiController.ShowGameoverScreen(CompileGameResults());
+    }
+
+    GameResults CompileGameResults() {
         int health = playerController.health;
         bool won = playerController.state == PlayerController.State.ALIVE;
         DeathReason deathReason = playerController.deathReason;
 
-        return new GameResults(0 /* placeholder until I implement the time system */, health, won, deathReason);
-    }
-
-    public void ShowGameoverScreen() {
-        uiController.ShowGameoverScreen(CompileGameResults());
+        return new GameResults(remainingTime, health, won, deathReason);
     }
 }

@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour {
 
             state = State.DEAD;
 
-            GameController.instance.ShowGameoverScreen();
+            GameController.instance.EndGame();
         }
     }
 

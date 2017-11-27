@@ -23,7 +23,6 @@ public class WhirlpoolController : MonoBehaviour {
         Vector2 normal = distance.normalized;
         float mag = distance.magnitude / maxPullDistance;
 
-
         player.AddVelocity(normal * distanceMultiplier * (1f / (mag * mag)) * Time.deltaTime);
     }
 }

@@ -18,10 +18,11 @@ public class GameOverMenu : MonoBehaviour {
 
     public void Show(GameResults results) {
         if (!results.won) {
-            titleText.text = "You Lost";
+            int secondsLeft = results.timeLeft;
+            titleText.text = "You lost with " + secondsLeft + " second" + (secondsLeft == 1 ? "" : "s") + " left";
             causeText.text = GetDeathMessage(results.deathReason);
         } else {
-            titleText.text = "You Won!";
+            titleText.text = "You won!";
             causeText.text = "";
         }
 
