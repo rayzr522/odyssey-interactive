@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Whirlpool
   - Cliffs
+  - ScyllaHead
   layers:
   - Default
   - TransparentFX

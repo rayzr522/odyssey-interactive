@@ -66,12 +66,24 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void OnTriggerEnter2D(Collider2D other) {
+        if (GameController.instance.state != GameController.State.PLAYING || state != State.ALIVE) {
+            return;
+        }
+
         if (other.CompareTag("Cliffs")) {
             deathReason = DeathReason.CLIFFS;
             StartCoroutine(Kill(true));
         } else if (other.CompareTag("Whirlpool")) {
             deathReason = DeathReason.WHIRLPOOL;
             StartCoroutine(Kill(false));
+        } else if (other.CompareTag("ScyllaHead")) {
+            health--;
+            GameController.instance.uiController.SetHealth(health);
+
+            if (health < 1) {
+                deathReason = DeathReason.EATEN;
+                StartCoroutine(Kill(true));
+            }
         }
     }
 
