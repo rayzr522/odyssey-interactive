@@ -9,7 +9,7 @@ public class GameOverMenu : MonoBehaviour {
 
     private string GetDeathMessage(DeathReason reason) {
         switch (reason) {
-            case DeathReason.WHIRLPOOL: return "You were sucked in by Charbydis!";
+            case DeathReason.WHIRLPOOL: return "You were sucked in by Charybdis!";
             case DeathReason.CLIFFS: return "You crashed into Scylla's cliffs!";
             case DeathReason.EATEN: return "Scylla gobbled you up!";
             default: return "";
