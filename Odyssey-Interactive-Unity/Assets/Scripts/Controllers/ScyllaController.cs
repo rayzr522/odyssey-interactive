@@ -10,6 +10,7 @@ public class ScyllaController : MonoBehaviour {
     public float verticalBounds = 4f;
     public float speed = 3f;
     public float neckMovementSpeed = 3f;
+    public float followSpeed = 0.66f;
 
     public GameObject neckPivot;
     public GameObject neck;
@@ -72,8 +73,8 @@ public class ScyllaController : MonoBehaviour {
             RotateNeck(Vector2.left);
             MoveBase();
         } else if (state == State.ATTACKING) {
-            // Uncomment for a very difficult to avoid AI:
-            // target = GameController.instance.playerController.transform.position;
+            target = Vector3.Lerp(target, GameController.instance.playerController.transform.position, followSpeed * Time.deltaTime);
+
             Vector2 distance = target - transform.position;
             RotateNeck(distance);
 

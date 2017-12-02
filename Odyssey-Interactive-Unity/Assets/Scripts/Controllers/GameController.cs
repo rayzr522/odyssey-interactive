@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour {
     public ScyllaController scyllaController;
     public WhirlpoolController whirlpoolController;
     public GameUIController uiController;
+    public CameraShake cameraShake;
 
     public float gameTime = 30f;
 
@@ -44,6 +45,8 @@ public class GameController : MonoBehaviour {
     void Init() {
         state = State.PLAYING;
         Time.timeScale = 1f;
+
+        Global.difficulty.Apply(this);
 
         _remainingTime = gameTime;
     }

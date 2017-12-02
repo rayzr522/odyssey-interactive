@@ -83,6 +83,8 @@ public class PlayerController : MonoBehaviour {
             if (health < 1) {
                 deathReason = DeathReason.EATEN;
                 StartCoroutine(Kill(true));
+            } else {
+                GameController.instance.cameraShake.ShakeCamera(0.2f, 0.008f);
             }
         }
     }
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour {
             animator.SetTrigger("implode");
 
             if (explode) {
+                GameController.instance.cameraShake.ShakeCamera(1.8f, 0.017f);
                 GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(1.5f);
                 Destroy(explosion);

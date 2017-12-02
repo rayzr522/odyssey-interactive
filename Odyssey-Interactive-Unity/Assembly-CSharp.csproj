@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Animators\Bobber.cs" />
+     <Compile Include="Assets\Scripts\Animators\CameraShake.cs" />
+     <Compile Include="Assets\Scripts\Animators\Head.cs" />
+     <Compile Include="Assets\Scripts\Animators\HeadExtender.cs" />
      <Compile Include="Assets\Scripts\Animators\Parallax.cs" />
      <Compile Include="Assets\Scripts\Animators\Spinner.cs" />
      <Compile Include="Assets\Scripts\Animators\WIGGLER.cs" />
