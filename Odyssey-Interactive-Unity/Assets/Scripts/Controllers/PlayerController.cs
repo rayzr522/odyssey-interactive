@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 
     // Prefab for the explosion
     public GameObject explosionPrefab;
+    public AudioClip explosionSound;
+    public AudioClip hitSound;
 
     // Remaining health
     public int health { get; private set; }
@@ -80,6 +82,7 @@ public class PlayerController : MonoBehaviour {
             health--;
             GameController.instance.uiController.SetHealth(health);
 
+            GameController.instance.PlaySound(hitSound, 0.5f);
             if (health < 1) {
                 deathReason = DeathReason.EATEN;
                 StartCoroutine(Kill(true));
@@ -97,6 +100,7 @@ public class PlayerController : MonoBehaviour {
 
             if (explode) {
                 GameController.instance.cameraShake.ShakeCamera(1.8f, 0.017f);
+                GameController.instance.PlaySound(explosionSound, 0.9f);
                 GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
                 yield return new WaitForSeconds(1.5f);
                 Destroy(explosion);

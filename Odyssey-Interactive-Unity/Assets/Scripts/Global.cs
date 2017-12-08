@@ -25,18 +25,24 @@ public static class Global {
         public float scyllaSpeed { get; private set; }
         public float scyllaNeckMovementSpeed { get; private set; }
         public float scyllaFollowSpeed { get; private set; }
+        public float scyllaMinStateTime { get; private set; }
+        public float scyllaMaxStateTime { get; private set; }
         public float whirlpoolMaxPullDistance { get; private set; }
         public float whirlpoolDistanceMultiplier { get; private set; }
 
-        internal Difficulty(int id, string name, Color color, float gameTime, float scyllaSpeed, float scyllaNeckMovementSpeed, float scyllaFollowSpeed, float whirlpoolMaxPullDistance, float whirlpoolDistanceMultiplier) {
+        internal Difficulty(int id, string name, Color color, float gameTime, float scyllaSpeed, float scyllaNeckMovementSpeed, float scyllaFollowSpeed, float scyllaMinStateTime, float scyllaMaxStateTime, float whirlpoolMaxPullDistance, float whirlpoolDistanceMultiplier) {
             this.id = id;
             this.name = name;
             this.color = color;
 
             this.gameTime = gameTime;
+
             this.scyllaSpeed = scyllaSpeed;
             this.scyllaNeckMovementSpeed = scyllaNeckMovementSpeed;
             this.scyllaFollowSpeed = scyllaFollowSpeed;
+            this.scyllaMinStateTime = scyllaMinStateTime;
+            this.scyllaMaxStateTime = scyllaMaxStateTime;
+
             this.whirlpoolMaxPullDistance = whirlpoolMaxPullDistance;
             this.whirlpoolDistanceMultiplier = whirlpoolDistanceMultiplier;
         }
@@ -48,6 +54,8 @@ public static class Global {
             scylla.speed = scyllaSpeed;
             scylla.neckMovementSpeed = scyllaNeckMovementSpeed;
             scylla.followSpeed = scyllaFollowSpeed;
+            scylla.minStateTime = scyllaMinStateTime;
+            scylla.maxStateTime = scyllaMaxStateTime;
 
             WhirlpoolController whirlpool = game.whirlpoolController;
             whirlpool.maxPullDistance = whirlpoolMaxPullDistance;
@@ -78,9 +86,13 @@ public static class Global {
             // scyllaSpeed
             2f,
             // scyllaNeckMovementSpeed
-            7.5f,
+            8.1f,
             // scyllaFollowSpeed
             1.2f,
+            // scyllaMinStateTime
+            0.8f,
+            // scyllaMaxStateTime
+            1.5f,
             // whirlpoolMaxPullDistance
             7.5f,
             // whirlpoolDistanceMultiplier
@@ -99,13 +111,17 @@ public static class Global {
             // scyllaSpeed
             3f,
             // scyllaNeckMovementSpeed
-            9.8f,
+            10.1f,
             // scyllaFollowSpeed
-            1.4f,
+            1.61f,
+            // scyllaMinStateTime
+            0.9f,
+            // scyllaMaxStateTime
+            1.52f,
             // whirlpoolMaxPullDistance
             7.5f,
             // whirlpoolDistanceMultiplier
-            4.75f
+            5.2f
        );
 
         public static readonly Difficulty HARD = new Global.Difficulty(
@@ -120,13 +136,18 @@ public static class Global {
             // scyllaSpeed
             4f,
             // scyllaNeckMovementSpeed
-            10.6f,
+            10.9f,
             // scyllaFollowSpeed
-            1.57f,
+            1.81f,
+            // scyllaMinStateTime
+            // Go down from Medium difficulty, gives you a chance to breath sometimes
+            0.6f,
+            // scyllaMaxStateTime
+            1.9f,
             // whirlpoolMaxPullDistance
-            6f,
+            6.8f,
             // whirlpoolDistanceMultiplier
-            5.8f
+            6.1f
        );
     }
 

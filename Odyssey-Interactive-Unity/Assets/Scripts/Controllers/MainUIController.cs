@@ -7,8 +7,16 @@ public class MainUIController : MonoBehaviour {
     public Image difficultyButton;
     public Text difficultyText;
 
+    public Text viewButton;
+
+    public Animator mainView;
+    public Animator creditsView;
+
+    private bool isMainView = true;
+
     void Start() {
         UpdateDifficultyLabel();
+        UpdateViewButton();
     }
 
     public void OnPressPlay() {
@@ -34,5 +42,17 @@ public class MainUIController : MonoBehaviour {
         }
 
         UpdateDifficultyLabel();
+    }
+
+    public void UpdateViewButton() {
+        viewButton.text = isMainView ? "Credits" : "Back";
+    }
+    public void ToggleView() {
+        isMainView = !isMainView;
+
+        mainView.SetBool("Hidden", !isMainView);
+        creditsView.SetBool("Hidden", isMainView);
+
+        UpdateViewButton();
     }
 }

@@ -12,6 +12,9 @@ public class ScyllaController : MonoBehaviour {
     public float neckMovementSpeed = 3f;
     public float followSpeed = 0.66f;
 
+    public float minStateTime = 1f;
+    public float maxStateTime = 1.5f;
+
     public GameObject neckPivot;
     public GameObject neck;
     public GameObject head;
@@ -23,16 +26,24 @@ public class ScyllaController : MonoBehaviour {
     private float time = 0f;
     private float neckLength = 0f;
 
+    private float nextStateTime;
+
     // Use this for initialization
     void Start() {
         state = State.IDLE;
+        nextStateTime = GetNextStateTime();
     }
 
     void CycleState() {
+        nextStateTime = GetNextStateTime();
+        time = 0f;
+
         if (state == State.IDLE) {
             state = State.ATTACKING;
             target = GameController.instance.playerController.transform.position;
         } else if (state == State.ATTACKING) {
+            // haxx aka keep retracting until you're all the way back, we don't want weird half-retracted necks. *too weird*
+            nextStateTime = 100f;
             state = State.RETRACTING;
         } else {
             state = State.IDLE;
@@ -57,6 +68,10 @@ public class ScyllaController : MonoBehaviour {
         neckPivot.transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg - 90f);
     }
 
+    float GetNextStateTime() {
+        return Random.Range(minStateTime, maxStateTime);
+    }
+
     // Update is called once per frame
     void Update() {
         if (GameController.instance.state != GameController.State.PLAYING) {
@@ -64,8 +79,7 @@ public class ScyllaController : MonoBehaviour {
         }
 
         time += Time.deltaTime;
-        if (time > 1f) {
-            time = 0f;
+        if (time > nextStateTime) {
             CycleState();
         }
 
@@ -78,7 +92,7 @@ public class ScyllaController : MonoBehaviour {
             Vector2 distance = target - transform.position;
             RotateNeck(distance);
 
-            if (distance.magnitude - neckLength > 0.1f) {
+            if (distance.magnitude - neckLength > 0.05f) {
                 neckLength += Time.deltaTime * neckMovementSpeed;
                 ResizeNeck(neckLength);
             }
@@ -87,6 +101,7 @@ public class ScyllaController : MonoBehaviour {
                 neckLength -= Time.deltaTime * neckMovementSpeed;
                 if (neckLength < 0f) {
                     neckLength = 0f;
+                    CycleState();
                 }
                 ResizeNeck(neckLength);
             }

@@ -62,6 +62,7 @@
      <Compile Include="Assets\Scripts\Controllers\GameOverMenu.cs" />
      <Compile Include="Assets\Scripts\Controllers\GameUIController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainUIController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\MusicController.cs" />
      <Compile Include="Assets\Scripts\Controllers\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Controllers\ScyllaController.cs" />
      <Compile Include="Assets\Scripts\Controllers\WhirlpoolController.cs" />

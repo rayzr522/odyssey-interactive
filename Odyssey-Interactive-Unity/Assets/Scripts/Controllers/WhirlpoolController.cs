@@ -23,6 +23,12 @@ public class WhirlpoolController : MonoBehaviour {
         Vector2 normal = distance.normalized;
         float mag = distance.magnitude / maxPullDistance;
 
-        player.AddVelocity(normal * distanceMultiplier * (1f / (mag * mag)) * Time.deltaTime);
+        // Quick n' dirty fix to stop those haxxorz who keep hiding on the side of the screen :)
+        float noHaxxMultiplier = (pos.x - playerPos.x + 2.5f) * 2f;
+        if (noHaxxMultiplier < 1) {
+            noHaxxMultiplier = 1;
+        }
+
+        player.AddVelocity(normal * distanceMultiplier * (1f / (mag * mag)) * Time.deltaTime * noHaxxMultiplier);
     }
 }

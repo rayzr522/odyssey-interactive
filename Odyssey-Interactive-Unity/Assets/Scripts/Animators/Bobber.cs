@@ -12,7 +12,7 @@ public class Bobber : MonoBehaviour {
     private float oldScreenHeight;
 
     void Awake() {
-        startY = transform.position.y;
+        startY = transform.localPosition.y;
         oldScreenHeight = Screen.height;
     }
 
@@ -24,8 +24,8 @@ public class Bobber : MonoBehaviour {
             oldScreenHeight = newScreenHeight;
         }
 
-        Vector3 position = transform.position;
+        Vector3 position = transform.localPosition;
         position.y = startY + Mathf.Sin(Time.time * speed) * range;
-        transform.position = position;
+        transform.localPosition = position;
     }
 }

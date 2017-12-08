@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour {
     public WhirlpoolController whirlpoolController;
     public GameUIController uiController;
     public CameraShake cameraShake;
+    public MusicController musicController;
 
     public float gameTime = 30f;
 
@@ -33,9 +34,15 @@ public class GameController : MonoBehaviour {
         get { return state == State.PLAYING; }
     }
 
+    private AudioSource audioSource;
+
     void Awake() {
         instance = this;
         Init();
+    }
+
+    void Start() {
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnDestroy() {
@@ -91,6 +98,7 @@ public class GameController : MonoBehaviour {
 
     public void EndGame() {
         state = State.GAMEOVER;
+        SetMusicVolume(0.2f);
         ShowGameoverScreen();
     }
 
@@ -104,5 +112,13 @@ public class GameController : MonoBehaviour {
         DeathReason deathReason = playerController.deathReason;
 
         return new GameResults(remainingTime, health, won, deathReason);
+    }
+
+    public void PlaySound(AudioClip clip, float volume = 1f) {
+        audioSource.PlayOneShot(clip, volume);
+    }
+
+    public void SetMusicVolume(float volume) {
+        musicController.targetVolume = volume;
     }
 }
