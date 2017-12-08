@@ -79,6 +79,12 @@ public class PlayerController : MonoBehaviour {
             deathReason = DeathReason.WHIRLPOOL;
             StartCoroutine(Kill(false));
         } else if (other.CompareTag("ScyllaHead")) {
+            // Prevent multi-hit from scylla in one attack
+            if (GameController.instance.scyllaController.hasHit) {
+                return;
+            }
+            GameController.instance.scyllaController.hasHit = true;
+
             health--;
             GameController.instance.uiController.SetHealth(health);
 

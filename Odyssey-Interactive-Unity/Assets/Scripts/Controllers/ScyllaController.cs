@@ -28,6 +28,8 @@ public class ScyllaController : MonoBehaviour {
 
     private float nextStateTime;
 
+    public bool hasHit = false;
+
     // Use this for initialization
     void Start() {
         state = State.IDLE;
@@ -46,6 +48,8 @@ public class ScyllaController : MonoBehaviour {
             nextStateTime = 100f;
             state = State.RETRACTING;
         } else {
+            // Reset hasHit to allow hit on next attack
+            hasHit = false;
             state = State.IDLE;
         }
     }

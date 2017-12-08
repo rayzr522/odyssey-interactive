@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour {
 
     public void EndGame() {
         state = State.GAMEOVER;
-        SetMusicVolume(0.2f);
+        SetMusicVolume(0.1f);
         ShowGameoverScreen();
     }
 
