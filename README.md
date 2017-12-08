@@ -3,6 +3,6 @@
 
 > A 2D game that recreates the scene with Scylla and Charybdis from *The Odyssey* in an interactive form
 
-> This is the WIP latest bleeding-edge build that I update every time I push changes for my game. This always has the latest and greatest (or maybe not so great) stuff I'm working on.
+> :tada: Version 1.0 has officially been released! Smack that play button and check it out! :tada: 
 
-For information on how this game *will* look and work (eventually), head over to [the docs](docs/IDEA.md)!
+For source material and information about how the game is supposed to work, head over and check out [the docs](docs/IDEA.md)!
